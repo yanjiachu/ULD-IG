@@ -1,6 +1,6 @@
 # ULD-IG
 
-Code for **Scaling Laws under Limited Budgets: Predicting LLM Fine-Tuning Loss**.
+Code for **ULD-IG: Scaling Laws under Limited Budgets: Predicting LLM Fine-Tuning Loss**.
 
 ## Installation
 
