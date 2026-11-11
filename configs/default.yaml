@@ -1,0 +1,161 @@
+datasets:
+  SFT-15:
+    file: ../data/SFT-15.csv
+    budgets:
+    - 9600
+    - 12800
+    - 16000
+    - 19200
+    - 25600
+    - 32000
+    - 38400
+    - 51200
+    - 64000
+    - 76800
+    - 102400
+    - 128000
+    - 153600
+    - 204800
+    - 256000
+  Lin24Rect:
+    file: ../data/Lin24Rect.csv
+    budgets:
+    - 6400
+    - 12800
+    - 25600
+    - 51200
+    - 102400
+    - 204800
+    - 409600
+    - 819200
+  SLDBench:
+    file: ../data/SLDBench.csv
+    budgets:
+    - 6400
+    - 12800
+    - 25600
+    - 51200
+    - 102400
+    - 204800
+    - 409600
+formulas:
+  ULD-IG:
+    fitting:
+      optimizer:
+        huber_delta: 0.01
+        e_floor_fraction_of_min_fit_loss: 0.3
+        num_random_starts: 30
+        random_seed: 42
+        maxiter: 10000
+        ftol: 1.0e-12
+        gtol: 1.0e-08
+        initial_ranges:
+          E_fraction:
+          - 0.2
+          - 0.8
+          d0_factors:
+          - 0.1
+          - 10.0
+          beta:
+          - 0.0001
+          - 10.0
+          alpha:
+          - 0.0001
+          - 10.0
+        parameter_bounds:
+          E_fraction:
+          - 1.0e-06
+          - 0.999999
+          d0_factors:
+          - 0.1
+          - 10.0
+          beta:
+          - 0.0001
+          - 10.0
+          alpha:
+          - 0.0001
+          - 10.0
+      soft_anchor:
+        type: inverse_power
+        c: 2.5e-05
+        p: 1.5
+  Power:
+    fitting:
+      optimizer:
+        huber_delta: 0.001
+        num_random_starts: 30
+        random_seed: 42
+        optimizer: L-BFGS-B
+        maxiter: 10000
+        ftol: 1.0e-12
+        gtol: 1.0e-08
+        parameter_bounds:
+          B:
+          - 1.0e-12
+          - 1.0e12
+          E:
+          - 1.0e-12
+          - 1.0e3
+          beta:
+          - 0.001
+          - 10.0
+  Vanilla:
+    fitting:
+      optimizer:
+        huber_delta: 0.001
+        num_random_starts: 30
+        random_seed: 42
+        optimizer: L-BFGS-B
+        maxiter: 10000
+        ftol: 1.0e-12
+        gtol: 1.0e-08
+        parameter_bounds:
+          B:
+          - 1.0e-12
+          - 1.0e12
+          E:
+          - 1.0e-12
+          - 1.0e3
+          alpha:
+          - 0.001
+          - 10.0
+          beta:
+          - 0.001
+          - 10.0
+  Rectified:
+    fitting:
+      optimizer:
+        huber_delta: 0.001
+        num_random_starts: 50
+        initial_grid_points: 10
+        random_seed: 42
+        optimizer: L-BFGS-B
+        maxiter: 10000
+        ftol: 1.0e-12
+        gtol: 1.0e-08
+        parameter_bounds:
+          C:
+          - 1.0e-12
+          - 1.0e3
+          B_s:
+          - -27.631021115928547
+          - 27.631021115928547
+          beta:
+          - 0.001
+          - 10.0
+          E:
+          - 1.0e-12
+          - 1.0e3
+      soft_anchor:
+        type: inverse_power
+        c: 2.5e-05
+        p: 1.5
+  SLD:
+    fitting:
+      optimizer:
+        ftol: 1.0e-09
+        gtol: 1.0e-09
+      soft_anchor:
+        type: inverse_power
+        c: 2.5e-05
+        p: 1.5
